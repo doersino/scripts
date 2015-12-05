@@ -20,7 +20,7 @@
 # 102: SRC or DEST does not exist or is not a directory
 
 # config
-FLAGS="-xavh --delete --exclude-from=$HOME/Dropbox/backup_exclude.txt"
+FLAGS="-xavh --delete --exclude-from=$(dirname $0)/backup_sync_exclude.txt"
 DEFAULT_SRC="/Volumes/one/"
 DEFAULT_DEST="/Volumes/two/"
 

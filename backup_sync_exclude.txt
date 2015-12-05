@@ -1,0 +1,12 @@
+.Trashes/
+.Spotlight-V100/
+.TemporaryItems/
+.fseventsd/
+._*
+.localized
+.dropbox.cache/
+.MobileBackups/
+.DocumentRevisions-V100/
+
+#Icon?
+#.DS_Store
