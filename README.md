@@ -12,4 +12,5 @@ Various scripts that don't really necessitate their own repository:
 * `move_vertical_images.sh`: Using `sips`, move vertical images in the current directory to a subdirectory "vertical".
 * `settitle.sh`: Sets the window/tab title on an OS X terminal. [(Imported from Gist: click here for previous revisions.)](https://gist.github.com/doersino/4644810/revisions)
 * `setvolume.sh`: Sets the volume on a Mac. [(Imported from Gist: click here for previous revisions.)](https://gist.github.com/doersino/55af01ec4223a10c4ee8/revisions)
+* `tripcode_words.php`: Generate tripcodes containing words, be default based on a list read from `/usr/share/dict/words`.
 * `webcam_dl.sh`: Downloads a webcam image, overlays the date/time, and compress past images into ZIP and MP4 format. [(Imported from Gist: click here for previous revisions.)](https://gist.github.com/doersino/ade1edd8fe154ea30ba4/revisions)
