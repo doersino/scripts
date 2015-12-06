@@ -58,7 +58,7 @@ printf "done\n"
 # this is where the magic happens
 for BLOG in $BLOGS; do
 	if [ -n "$OPTIONS" ]; then
-		tumblr_backup "$OPTIONS" --outdir "$OUT/$(date +%F)_$BLOG" $BLOG
+		tumblr_backup $OPTIONS --outdir "$OUT/$(date +%F)_$BLOG" $BLOG
 	else
 		tumblr_backup --outdir "$OUT/$(date +%F)_$BLOG" $BLOG
 	fi
