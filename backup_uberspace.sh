@@ -3,10 +3,7 @@
 # This script creates a backup of your Uberspace home folder, as well as your
 # websites and MySQL databases. Configure username and server before running.
 #
-# TODO ^C should quit this entire script and clean up first (remove db backup)
-# TODO some error handling and exit codes
 # TODO set username and server via flags
-# TODO sanity checking before backup: "these server contents will be copied to this local folder"
 
 USERNAME="doersino"
 SERVER="draco"
@@ -19,9 +16,27 @@ function echob() {
 	echo "${BOLD}$@${NORMAL}"
 }
 
+function abort() {
+    echob "Removing MySQL backup..."
+    ssh -4 "$IN" "rm all-databases.sql"
+    [[ -d "$OUT" ]] && echob "Removing incomplete local backup..." && rm -r "$OUT"
+    exit 1
+}
+
 [[ -d "$OUT" ]] && echob "You've already made a backup today, no refill for you!" && exit
 
 STARTTIME=$(date +%s)
+
+echob "Performing a backup of $IN to $OUT in..."
+echob "...3"
+sleep 1
+echob "...2"
+sleep 1
+echob "...1"
+sleep 1
+echob "LIFTOFF"
+
+trap "abort" INT
 
 echob "Backing up all MySQL databases..."
 ssh -4 "$IN" "mysqldump -u $USERNAME -p --all-databases > all-databases.sql"
