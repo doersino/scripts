@@ -13,8 +13,8 @@
 # The -t and -w flags are already set to sensible values below, but can be
 # overridden when calling this script.
 
-CAPTURE_INTERVAL="5"
-RESTART_INTERVAL="25"
+CAPTURE_INTERVAL="2.5"
+RESTART_INTERVAL="15"
 
 IMAGESNAP_PATH="$(which imagesnap)"
 IMAGESNAP_CONFIG="-t $CAPTURE_INTERVAL -w 1 $@"
