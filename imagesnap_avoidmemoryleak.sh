@@ -12,6 +12,12 @@
 # Usage: Execute this bash script. Any parameters will be passed to imagesnap.
 # The -t and -w flags are already set to sensible values below, but can be
 # overridden when calling this script.
+#
+# Pro tip: If you have installed ffmpeg, use the following command to convert
+# the images to an mp4 video. If $CAPTURE_INTERVAL is set to 2.5 (default), this
+# will yield a timelapse video with every second of video corresponding to one
+# minute of real time.
+# ffmpeg -framerate 24 -pattern_type glob -i *.jpg -pix_fmt yuv420p out.mp4
 
 CAPTURE_INTERVAL="2.5"
 RESTART_INTERVAL="15"
@@ -65,4 +71,7 @@ while true; do
 
 	# Rename and move captured images
 	imagesnap_avoidmemoryleak_rename
+
+	# Output progress
+	echo "Captured $COUNTER images so far, continuing..."
 done
