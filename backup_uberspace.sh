@@ -6,7 +6,7 @@
 # TODO ^C should quit this entire script and clean up first (remove db backup)
 # TODO some error handling and exit codes
 # TODO set username and server via flags
-# TODO sanity checking before backup: "these server contents get copied to this local folder"
+# TODO sanity checking before backup: "these server contents will be copied to this local folder"
 
 USERNAME="doersino"
 SERVER="draco"
@@ -23,10 +23,10 @@ function echob() {
 
 STARTTIME=$(date +%s)
 
-echob "Backing up database..."
+echob "Backing up all MySQL databases..."
 ssh -4 "$IN" "mysqldump -u $USERNAME -p --all-databases > all-databases.sql"
 
-echob "Backing up home directory, including database backup..."
+echob "Backing up home directory, including MySQL backup..."
 mkdir -p "$OUT/home/$USERNAME"
 scp -pr "$IN:/home/$USERNAME" "$OUT/home/"
 
@@ -34,7 +34,7 @@ echob "Backing up web-accessible files..."
 mkdir -p "$OUT/var/www/virtual/$USERNAME"
 scp -pr "$IN:/var/www/virtual/$USERNAME" "$OUT/var/www/virtual/"
 
-echob "Removing database backup..."
+echob "Removing MySQL backup..."
 ssh -4 "$IN" "rm all-databases.sql"
 
 ENDTIME=$(date +%s)
