@@ -98,15 +98,19 @@ alias space2_='for i in *; do [[ $i == *" "* ]] && mv "$i" ${i// /_}; done'
 alias c='clear'
 alias grep='grep --color=auto'  # highlight search phrase
 alias timestamp='date +%s'
-alias gpom='git push origin master'
 alias pingg='prettyping --nolegend -i 0.1 google.com'
 alias ip='curl ifconfig.me'
 alias up='uptime'               # drop the "time". just "up". it's cleaner.
 alias batt='pmset -g batt'      # battery status
-alias nosleep='pmset noidle'    # keep computer awake indefinately
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend" #lock screen
+alias nosleep='pmset noidle'    # keep computer awake indefinitely
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"  # lock screen
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
 alias refresh-bashrc='source ~/.bashrc'
+
+# git
+alias gpom='git push origin master'
+alias grau='git remote add upstream'
+alias gmakeeven='git fetch upstream && git checkout master && git merge upstream/master && git push origin master'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
 
 # image operations
 alias 2png='mogrify -format png'
