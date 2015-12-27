@@ -173,7 +173,7 @@ function setvolume() {
 	osascript -e "set volume $1"
 }
 
-# save keystrokes when controlling itunes remotely
+# save keystrokes for some common actions when controlling itunes remotely using applescript
 # https://github.com/doersino/scripts/blob/master/it.sh
 function it() {
 	if [ -z "$1" ]; then
