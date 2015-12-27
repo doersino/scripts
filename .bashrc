@@ -31,7 +31,7 @@ bind "set completion-ignore-case on"  # case-insensitive cd completion
 bind "set show-all-if-ambiguous on"   # make it unnecessary to press Tab twice
                                       # when there is more than one match
 
-# ctrl+D must be pressed twice to exit
+# make it so ctrl+D must be pressed twice to exit
 export IGNOREEOF=1
 
 # colored man pages
@@ -106,10 +106,11 @@ alias nosleep='pmset noidle'    # keep computer awake indefinitely
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"  # lock screen
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
 alias refresh-bashrc='source ~/.bashrc'
+alias s='open -a Sublime\ Text\ 2'
 
 # git
 alias gpom='git push origin master'
-alias grau='git remote add upstream'
+alias grau='git remote add upstream'  # argument: clone url of remote upstream repo
 alias gmakeeven='git fetch upstream && git checkout master && git merge upstream/master && git push origin master'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
 
 # image operations
@@ -119,11 +120,6 @@ alias png2jpg='for i in *.png; do mogrify -format jpg -quality 95 "$i" && rm "$i
 alias png2jpg90='for i in *.png; do mogrify -format jpg -quality 90 "$i" && rm "$i"; done'
 alias resize1k='sips --resampleWidth 1000'
 alias jpg2mp4='ffmpeg -framerate 24 -pattern_type glob -i '"'"'*.jpg'"'"' -pix_fmt yuv420p out.mp4'
-
-# applications
-alias s='open -a Sublime\ Text\ 2'
-alias chrome='open -a Google\ Chrome'
-alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
 # personal
 alias ping='ping -c 1000'
@@ -175,4 +171,24 @@ function setvolume() {
 		echo -e "$USAGE"; return 1
 	fi
 	osascript -e "set volume $1"
+}
+
+# save keystrokes when controlling itunes remotely
+# https://github.com/doersino/scripts/blob/master/it.sh
+function it() {
+	if [ -z "$1" ]; then
+		osascript -e 'tell application "iTunes" to playpause'
+	elif [ "$1" = "?" ]; then
+		osascript -e 'tell application "iTunes" to get name of current track'
+		printf "\033[90mby \033[0m"
+		osascript -e 'tell application "iTunes" to get artist of current track'
+		printf "\033[90mon \033[0m"
+		osascript -e 'tell application "iTunes" to get album of current track'
+	elif [ "$1" = "prev" ]; then
+		osascript -e 'tell application "iTunes" to play previous track'
+	elif [ "$1" = "next" ]; then
+		osascript -e 'tell application "iTunes" to play next track'
+	else
+		osascript -e "tell application \"iTunes\" to $1"
+	fi
 }
