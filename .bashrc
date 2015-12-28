@@ -51,6 +51,15 @@ export EDITOR=nano
 ## COMMAND PROMPT ##
 ####################
 
+# source git prompt
+if [ -e /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
+	source /usr/local/etc/bash_completion.d/git-prompt.sh
+	GIT_PS1_SHOWDIRTYSTATE=1
+	GIT_PS1_SHOWSTASHSTATE=1
+	GIT_PS1_SHOWUNTRACKEDFILES=1
+	GIT_PS1_SHOWUPSTREAM="verbose"
+fi
+
 # set up the command prompt
 function __prompt_command() {
 	local EXIT=$?
@@ -59,7 +68,17 @@ function __prompt_command() {
 	else
 		PS1="\[\033[1;31m\]"
 	fi
-	PS1+="[$EXIT \u@\h \w]\[\033[0;1m\]\n\$\[\033[0m\] "
+
+	# first line
+	PS1+="[$EXIT \u@\h \w]\[\033[0;1m\]"
+
+	# git prompt
+	if declare -f __git_ps1 > /dev/null; then
+		PS1+="$(__git_ps1 " (%s)")"
+	fi
+
+	# second line
+	PS1+="\n\$\[\033[0m\] "
 }
 PROMPT_COMMAND=__prompt_command
 
