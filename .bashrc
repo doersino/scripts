@@ -115,13 +115,15 @@ alias space2_='for i in *; do [[ $i == *" "* ]] && mv "$i" ${i// /_}; done'
 
 # utilities
 alias c='clear'
-alias grep='grep --color=auto'  # highlight search phrase
+alias grep='grep --color=auto'     # highlight search phrase
 alias timestamp='date +%s'
 alias pingg='prettyping --nolegend -i 0.1 google.com'
 alias ip='curl ifconfig.me'
-alias up='uptime'               # drop the "time". just "up". it's cleaner.
-alias batt='pmset -g batt'      # battery status
-alias nosleep='pmset noidle'    # keep computer awake indefinitely
+alias up='uptime'                  # drop the "time". just "up". it's cleaner.
+alias batt='pmset -g batt'         # battery status
+alias dim='pmset displaysleepnow'  # turn the display off
+alias sleep='pmset sleepnow'       # sleep immediately
+alias nosleep='pmset noidle'       # keep computer awake indefinitely
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"  # lock screen
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
 alias refresh-bashrc='source ~/.bashrc'
