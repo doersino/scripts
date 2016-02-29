@@ -1,15 +1,17 @@
 #!/bin/bash
 
-# Performs an rsync with predefined flags, configurable default arguments, only
-# the most important options (dry-run and excludes), and sanity checking.
+# Performs a verbose rsync with predefined flags, configurable default
+# arguments, only the most important options (dry-run, (even more) increased
+# verbosity, and excludes), and sanity checking.
 #
 # Usage:
-# ./backup_sync.sh [-n] [-e EXCLUDE] [-f FLAGS] [-d] [SRC] [DEST]
+# ./backup_sync.sh [-n] [-v] [-e EXCLUDE] [-f FLAGS] [-d] [SRC] [DEST]
 #
 # (If SRC or DEST are not given, the defaults will be used.)
 #
 # Options:
 # -n	dry run
+# -v	verbose (equivalent to the rsync flags "--progress --stats")
 # -e	exclude pattern (multiple -e options possible)
 # -f	additional rsync options
 # -d	debug :)
@@ -33,6 +35,10 @@ DEBUG=0
 while [ "${1:0:1}" = "-" ]; do
 	if [ "$1" = "-n" ]; then
 		DRYRUN="-n"
+		shift
+	fi
+	if [ "$1" = "-v" ]; then
+		FLAGS="$FLAGS --progress --stats"
 		shift
 	fi
 	if [ "$1" = "-e" ]; then
