@@ -145,8 +145,8 @@ alias jpg2mp4='ffmpeg -framerate 24 -pattern_type glob -i '"'"'*.jpg'"'"' -pix_f
 
 # personal
 alias ping='ping -c 1000'
-alias ubuntussh='ssh -XY ubuntu.local'
-alias ubuntumcs='ssh -t ubuntu.local "screen -r mcs"'
+alias exssh='ssh -XY 192.168.0.3'
+alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
 #alias unissh='ssh zxmqp63@134.2.2.38'
