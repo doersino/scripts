@@ -128,7 +128,7 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
 alias reallyemptytrash="rm ~/.Trash/*"
 alias refresh-bashrc='source ~/.bashrc'
-alias s='open -a Sublime\ Text\ 2'
+alias s='open -a Sublime\ Text'
 
 # git
 alias gpom='git push origin master'
