@@ -1,3 +1,5 @@
+#!/bin/bash
+
 export GOPATH=$HOME/Documents/code/go
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin # DBS1
@@ -79,6 +81,9 @@ function __prompt_command() {
 
 	# second line
 	PS1+="\n\$\[\033[0m\] "
+
+	# set terminal title to cwd
+	PS1="\e]0;\w\a""$PS1"
 }
 PROMPT_COMMAND=__prompt_command
 
@@ -89,10 +94,6 @@ PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 #############
 ## ALIASES ##
 #############
-
-# cd
-alias ..='cd ..'   # go up one directory
-alias -- -='cd -'  # the command is actually -
 
 # ls
 alias ls='ls -FG'  # display a trailing slash if entry is directory or star if
@@ -114,11 +115,10 @@ alias f='open -a Finder .'
 alias space2_='for i in *; do [[ $i == *" "* ]] && mv "$i" ${i// /_}; done'
 
 # utilities
-alias c='clear'
 alias grep='grep --color=auto'     # highlight search phrase
 alias timestamp='date +%s'
 alias pingg='prettyping --nolegend -i 0.1 google.com'
-alias ip='curl ifconfig.me'
+alias ip='curl ipinfo.io/ip'
 alias up='uptime'                  # drop the "time". just "up". it's cleaner.
 alias batt='pmset -g batt'         # battery status
 alias dim='pmset displaysleepnow'  # turn the display off
@@ -131,6 +131,7 @@ alias refresh-bashrc='source ~/.bashrc'
 alias s='open -a Sublime\ Text'
 
 # git
+alias g='git'
 alias gpom='git push origin master'
 alias grau='git remote add upstream'  # argument: clone url of remote upstream repo
 alias gmakeeven='git fetch upstream && git checkout master && git merge upstream/master && git push origin master'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
@@ -149,10 +150,6 @@ alias exssh='ssh -XY 192.168.0.3'
 alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
-#alias unissh='ssh zxmqp63@134.2.2.38'
-#alias unigateway='ssh -Y doersing@cgcontact.informatik.uni-tuebingen.de'
-#alias startlubuntuvm='/Applications/VirtualBox.app/Contents/MacOS/VBoxManage startvm Lubuntu'
-#alias stoplubuntuvm='/Applications/VirtualBox.app/Contents/MacOS/VBoxManage controlvm Lubuntu acpipowerbutton && sleep 1 && /Applications/VirtualBox.app/Contents/MacOS/VBoxManage controlvm Lubuntu keyboardputscancode 1c'
 
 
 ###############
