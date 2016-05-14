@@ -5,7 +5,7 @@
 # After running this script, you'll find a directory named "Fonts_YYYY-MM-DD" on
 # your desktop.
 
-DIR="$HOME/Desktop/Fonts_$(date +%F)"
+DIR="$HOME/Desktop/backups/Fonts_$(date +%F)"
 
 [ "$1" = "-v" ] && set -o xtrace
 

@@ -5,10 +5,10 @@
 
 # BLOGS is a space-separated list of the blogs you want to backup. You can omit
 # the ".tumblr.com" part if you want.
-BLOGS="neondust.tumblr.com aufgeloest.tumblr.com hejlisten.tumblr.com"
+BLOGS="neondust.tumblr.com aufgeloest.tumblr.com hejlisten.tumblr.com animesignage.tumblr.com animerrrrrrrroll.tumblr.com gerhardgundermann.tumblr.com"
 # OUT is the directory where the backups will be stored. For each blog, a date-
-# prefixed subdirectory will be created here.
-OUT="$HOME/Desktop"
+# suffixed subdirectory will be created here.
+OUT="$HOME/Desktop/backups"
 # TEMP is the directory where the required software will be cached. It will be
 # created and removed automatically.
 TEMP="$OUT/.backup_tumblr_temp"
@@ -58,9 +58,9 @@ printf "done\n"
 # this is where the magic happens
 for BLOG in $BLOGS; do
 	if [ -n "$OPTIONS" ]; then
-		tumblr_backup $OPTIONS --outdir "$OUT/$(date +%F)_$BLOG" $BLOG
+		tumblr_backup $OPTIONS --outdir "$OUT/$BLOG"_$(date +%F) $BLOG
 	else
-		tumblr_backup --outdir "$OUT/$(date +%F)_$BLOG" $BLOG
+		tumblr_backup --outdir "$OUT/$BLOG"_$(date +%F) $BLOG
 	fi
 done
 

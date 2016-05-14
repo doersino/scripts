@@ -6,12 +6,12 @@
 USERNAME="doersino"
 SERVER="draco"
 IN="$USERNAME@$SERVER.uberspace.de"
-OUT="$HOME/Desktop/uberspace_$(date +%F)"
+OUT="$HOME/Desktop/backups/uberspace_$(date +%F)"
 
 function echob() {
-	BOLD=$(tput bold)
-	NORMAL=$(tput sgr0)
-	echo "${BOLD}$@${NORMAL}"
+    BOLD=$(tput bold)
+    NORMAL=$(tput sgr0)
+    echo "${BOLD}$@${NORMAL}"
 }
 
 function abort() {
