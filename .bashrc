@@ -126,7 +126,7 @@ alias sleepnow='pmset sleepnow'    # sleep immediately
 alias nosleep='pmset noidle'       # keep computer awake indefinitely
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"  # lock screen
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
-alias reallyemptytrash="rm ~/.Trash/*"
+alias reallyemptytrash="rm -r ~/.Trash/*"  # because sometimes the system needs a little help
 alias refresh-bashrc='source ~/.bashrc'
 alias s='open -a Sublime\ Text'
 
