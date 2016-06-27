@@ -129,7 +129,7 @@ alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
 alias reallyemptytrash="rm -r ~/.Trash/*"  # because sometimes the system needs a little help
 alias refresh-bashrc='source ~/.bashrc'
 alias s='open -a Sublime\ Text'
-alias brewdeps='echo "Listing all installed homebrew packages along with packages that depend on them:"; brew list -1 | while read cask; do echo -ne "\x1B[1;34m$cask \x1B[0m"; brew uses $cask --installed | awk '"'"'{printf(" %s ", $0)}'"'"'; echo ""; done'
+alias brewdeps='echo "Listing all installed homebrew packages along with packages that depend on them:"; brew list -1 | while read cask; do echo -ne "\x1B[1;34m$cask \x1B[0m"; brew uses $cask --installed | awk '"'"'{printf(" %s ", $0)}'"'"'; echo ""; done' # via https://www.thingy-ma-jig.co.uk/blog/22-09-2014/homebrew-list-packages-and-what-uses-them
 
 # git
 alias g='git'
