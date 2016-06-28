@@ -1,9 +1,7 @@
 #!/bin/bash
 
-export GOPATH=$HOME/Documents/code/go
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin # DBS1
-export PATH=$PATH:/opt/local/bin # DBS1 (Zorba)
+export PATH="$HOME/Dropbox:$PATH" # backup scripts
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin # DBS
 export PATH="$HOME/Library/Haskell/bin:$PATH" # FP
 
 ######################################
