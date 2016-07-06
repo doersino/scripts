@@ -134,7 +134,7 @@ alias g='git'
 alias gpom='git push origin master'
 alias grau='git remote add upstream'  # argument: clone url of remote upstream repo
 alias gmakeeven='git fetch upstream && git checkout master && git merge upstream/master && git push origin master'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
-
+alias gitslog='git log --pretty=oneline --abbrev-commit -n 10'  # compact log
 # image operations
 alias 2png='mogrify -format png'
 alias 2jpg='mogrify -format jpg -quality 95'
