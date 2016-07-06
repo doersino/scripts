@@ -70,7 +70,14 @@ function __prompt_command() {
 	fi
 
 	# first line
-	PS1+="[$EXIT \u@\h \w]\[\033[0;1m\]"
+	PS1+="[$EXIT \u@\h "
+
+	# directory string (adapted from http://stackoverflow.com/a/26555347)
+	# adjust width by changing factor in "n=0.6*n"
+	PS1+='$(pwd|awk -F/ -v "n=$(tput cols)" -v "h=^$HOME" '\''{sub(h,"~");n=0.6*n;b=$1"/"$2} length($0)<=n || NF==3 {print;next;} NF>3{b=b"/.../"; e=$NF; n-=length(b $NF); for (i=NF-1;i>3 && n>length(e)+1;i--) e=$i"/"e;} {print b e;}'\'')'
+
+	# end first line
+	PS1+="]\[\033[0;1m\]"
 
 	# git prompt
 	if declare -f __git_ps1 > /dev/null; then
@@ -80,8 +87,8 @@ function __prompt_command() {
 	# second line
 	PS1+="\n\$\[\033[0m\] "
 
-	# set terminal title to cwd
-	PS1="\e]0;\w\a""$PS1"
+	# set terminal title to basename of cwd
+	PS1="\e]0;\W\a""$PS1"
 }
 PROMPT_COMMAND=__prompt_command
 
@@ -134,7 +141,7 @@ alias g='git'
 alias gpom='git push origin master'
 alias grau='git remote add upstream'  # argument: clone url of remote upstream repo
 alias gmakeeven='git fetch upstream && git checkout master && git merge upstream/master && git push origin master'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
-alias gitslog='git log --pretty=oneline --abbrev-commit -n 10'  # compact log
+alias gitslog='git log --pretty=oneline --abbrev-commit -n 15'  # compact log
 # image operations
 alias 2png='mogrify -format png'
 alias 2jpg='mogrify -format jpg -quality 95'
