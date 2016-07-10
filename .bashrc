@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export PATH="$HOME/Dropbox:$PATH" # backup scripts
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin # DBS
 export PATH="$HOME/Library/Haskell/bin:$PATH" # FP
 
@@ -133,8 +134,8 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
 alias reallyemptytrash="rm -r ~/.Trash/*"  # because sometimes the system needs a little help
 alias refresh-bashrc='source ~/.bashrc'
-alias s='open -a Sublime\ Text'
-alias brewdeps='echo "Listing all installed homebrew packages along with packages that depend on them:"; brew list -1 | while read cask; do echo -ne "\x1B[1;34m$cask \x1B[0m"; brew uses $cask --installed | awk '"'"'{printf(" %s ", $0)}'"'"'; echo ""; done' # via https://www.thingy-ma-jig.co.uk/blog/22-09-2014/homebrew-list-packages-and-what-uses-them
+alias s='subl'
+alias brewdeps='echo "Listing all installed homebrew packages along with packages that depend on them:"; brew list -1 | while read cask; do echo -ne "\x1B[1;34m$cask \x1B[0m"; brew uses $cask --installed | awk '"'"'{printf(" %s ", $0)}'"'"'; echo ""; done'  # via https://www.thingy-ma-jig.co.uk/blog/22-09-2014/homebrew-list-packages-and-what-uses-them
 
 # git
 alias g='git'
@@ -142,6 +143,7 @@ alias gpom='git push origin master'
 alias grau='git remote add upstream'  # argument: clone url of remote upstream repo
 alias gmakeeven='git fetch upstream && git checkout master && git merge upstream/master && git push origin master'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
 alias gitslog='git log --pretty=oneline --abbrev-commit -n 15'  # compact log
+
 # image operations
 alias 2png='mogrify -format png'
 alias 2jpg='mogrify -format jpg -quality 95'
@@ -153,7 +155,7 @@ alias jpg2mp4='ffmpeg -framerate 24 -pattern_type glob -i '"'"'*.jpg'"'"' -pix_f
 # personal
 alias ping='ping -c 1000'
 alias exssh='ssh -XY 192.168.0.3'
-alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'
+alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'  # minecraft server
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
 
@@ -199,7 +201,8 @@ function setvolume() {
 	osascript -e "set volume $1"
 }
 
-# save keystrokes for some common actions when controlling itunes remotely using applescript
+# save keystrokes for some common actions when controlling itunes remotely with
+# applescript
 # https://github.com/doersino/scripts/blob/master/it.sh
 function it() {
 	if [ -z "$1" ]; then
