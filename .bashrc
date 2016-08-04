@@ -156,7 +156,7 @@ alias jpg2mp4='ffmpeg -framerate 24 -pattern_type glob -i '"'"'*.jpg'"'"' -pix_f
 alias ping='ping -c 1000'
 alias exssh='ssh -XY 192.168.0.3'
 alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'  # minecraft server
-alias exdls='md ~/Desktop/dls; scp -rp 192.168.0.3:/home/noah/Downloads/ ~/Desktop/dls'
+alias exdls='md ~/Desktop/exdls; scp -rp 192.168.0.3:/home/noah/Downloads/ ~/Desktop/exdls/'
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
 
