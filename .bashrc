@@ -125,6 +125,7 @@ alias grep='grep --color=auto'     # highlight search phrase
 alias timestamp='date +%s'
 alias pingg='prettyping --nolegend -i 0.1 google.com'
 alias ip='curl ipinfo.io/ip'
+alias duls='du -h -d1 | sort -r'   # list disk usage statistics for the current folder, via https://github.com/jez/dotfiles/blob/master/util/aliases.sh
 alias up='uptime'                  # drop the "time". just "up". it's cleaner.
 alias batt='pmset -g batt'         # battery status
 alias dim='pmset displaysleepnow'  # turn the display off
@@ -139,10 +140,20 @@ alias brewdeps='echo "Listing all installed homebrew packages along with package
 
 # git
 alias g='git'
-alias gpom='git push origin master'
-alias grau='git remote add upstream'  # argument: clone url of remote upstream repo
-alias gmakeeven='git fetch upstream && git checkout master && git merge upstream/master && git push origin master'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
-alias gitslog='git log --pretty=oneline --abbrev-commit -n 15'  # compact log
+alias gs='g status'
+alias gd='g diff'
+alias gdsf='g dsf'
+alias ga='g add'
+alias gc='g commit'
+alias gcm='g commit -m'
+alias gcam='g commit -am'
+alias gp='g push'
+alias gpom='gp origin master'
+alias gl='g log'
+alias glg='gl --graph'
+alias gls='g log --pretty=oneline --abbrev-commit -n 15'  # short log
+alias grau='g remote add upstream'  # argument: clone url of remote upstream repo
+alias gmakeeven='g fetch upstream && g checkout master && g merge upstream/master && gpom'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
 
 # image operations
 alias 2png='mogrify -format png'
