@@ -140,7 +140,7 @@ alias brewdeps='echo "Listing all installed homebrew packages along with package
 
 # git
 alias g='git'
-alias gs='g status'
+alias gt='g status'
 alias gd='g diff'
 alias gdsf='g dsf'
 alias ga='g add'
@@ -170,6 +170,7 @@ alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'  # minecraft server
 alias exdls='md ~/Desktop/exdls; scp -rp 192.168.0.3:/home/noah/Downloads/ ~/Desktop/exdls/'
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
+alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
 
 
 ###############
