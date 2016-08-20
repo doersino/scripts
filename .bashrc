@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export PATH="$HOME/Dropbox:$PATH"  # backup scripts
-export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
+export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin  # KLToLLVM
 export PATH="$HOME/Library/Haskell/bin:$PATH"  # KLToLLVM
 export PATH="$HOME/.local/bin:$PATH"  # stack, KLToLLVM
@@ -172,7 +172,8 @@ alias exdls='md ~/Desktop/exdls; scp -rp 192.168.0.3:/home/noah/Downloads/ ~/Des
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
 alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
-alias klue='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/klue.sh'
+alias klue='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/klue.sh'  # KLToLLVM
+alias kltollvm='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/code/dist/build/kltollvm/kltollvm'  # KLToLLVM
 
 ###############
 ## FUNCTIONS ##
