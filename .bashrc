@@ -4,7 +4,7 @@ export PATH="$HOME/Dropbox:$PATH"  # backup scripts
 export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin  # KLToLLVM
 export PATH="$HOME/Library/Haskell/bin:$PATH"  # KLToLLVM
-export PATH="$HOME/.local/bin:$PATH"  # stack, KLToLLVM
+export PATH="$HOME/.ghc-mod-sandbox/bin:$PATH"  # atom haskell-ide, KLToLLVM
 
 ######################################
 ## HISTORY, SHELL, AND LESS OPTIONS ##
