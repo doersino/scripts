@@ -5,7 +5,7 @@
 # verbosity, and excludes), and sanity checking.
 #
 # Usage:
-# ./backup_sync.sh [-n] [-v] [-e EXCLUDE] [-f FLAGS] [-d] [SRC] [DEST]
+# ./backup-sync.sh [-n] [-v] [-e EXCLUDE] [-f FLAGS] [-d] [SRC] [DEST]
 #
 # (If SRC or DEST are not given, the defaults will be used.)
 #
@@ -22,7 +22,7 @@
 # 102: SRC or DEST does not exist or is not a directory
 
 # config
-FLAGS="-xavh --delete --exclude-from=$(dirname $0)/backup_sync_exclude.txt"
+FLAGS="-xavh --delete --exclude-from=$(dirname $0)/backup-sync-exclude.txt"
 DEFAULT_SRC="/Volumes/one/"
 DEFAULT_DEST="/Volumes/two/"
 

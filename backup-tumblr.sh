@@ -11,7 +11,7 @@ BLOGS="neondust.tumblr.com aufgeloest.tumblr.com hejlisten.tumblr.com animesigna
 OUT="$HOME/Desktop/backups"
 # TEMP is the directory where the required software will be cached. It will be
 # created and removed automatically.
-TEMP="$OUT/.backup_tumblr_temp"
+TEMP="$OUT/.backup-tumblr-temp"
 # OPTIONS is a space-separated list of options passed to tumblr_backup.py for
 # all blogs. This feature is intended for experienced users. Refer to
 # https://github.com/bbolli/tumblr-utils/blob/master/tumblr_backup.md#options

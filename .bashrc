@@ -1,17 +1,20 @@
 #!/bin/bash
 
-export PATH="$HOME/Dropbox:$PATH"  # backup scripts
 export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin  # KLToLLVM
-export PATH="$HOME/Library/Haskell/bin:$PATH"  # KLToLLVM
-export PATH="$HOME/.ghc-mod-sandbox/bin:$PATH"  # atom haskell-ide, KLToLLVM
+
+# temporary: helpful for working on my bachelors thesis
+alias klue='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/klue.sh'
+alias kltollvm='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/code/dist/build/kltollvm/kltollvm'
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+export PATH="$HOME/Library/Haskell/bin:$PATH"
+export PATH="$HOME/.ghc-mod-sandbox/bin:$PATH"
 
 ######################################
 ## HISTORY, SHELL, AND LESS OPTIONS ##
 ######################################
 
 # read this number of lines into history buffer on startup
-export HISTSIZE=10000
+export HISTSIZE=1000000
 
 # HISTFILESIZE is set *after* bash reads the history file (which is done after
 # reading any configs like .bashrc). If it is unset at this point it is set to
@@ -75,7 +78,7 @@ function __prompt_command() {
 	PS1+="[$EXIT \u@\h "
 
 	# directory string (adapted from http://stackoverflow.com/a/26555347)
-	# adjust width by changing factor in "n=0.6*n"
+	# adjust width by changing factor in expression "n=0.6*n"
 	PS1+='$(pwd|awk -F/ -v "n=$(tput cols)" -v "h=^$HOME" '\''{sub(h,"~");n=0.6*n;b=$1"/"$2} length($0)<=n || NF==3 {print;next;} NF>3{b=b"/.../"; e=$NF; n-=length(b $NF); for (i=NF-1;i>3 && n>length(e)+1;i--) e=$i"/"e;} {print b e;}'\'')'
 
 	# end first line
@@ -122,6 +125,7 @@ alias f='open -a Finder .'
 alias space2_='for i in *; do [[ $i == *" "* ]] && mv "$i" ${i// /_}; done'
 
 # utilities
+alias s='subl'
 alias grep='grep --color=auto'     # highlight search phrase
 alias timestamp='date +%s'
 alias pingg='prettyping --nolegend -i 0.1 google.com'
@@ -136,7 +140,6 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
 alias reallyemptytrash="rm -r ~/.Trash/*"  # because sometimes the system needs a little help
 alias refresh-bashrc='source ~/.bashrc'
-alias s='subl'
 alias brewdeps='echo "Listing all installed homebrew packages along with packages that depend on them:"; brew list -1 | while read cask; do echo -ne "\x1B[1;34m$cask \x1B[0m"; brew uses $cask --installed | awk '"'"'{printf(" %s ", $0)}'"'"'; echo ""; done'  # via https://www.thingy-ma-jig.co.uk/blog/22-09-2014/homebrew-list-packages-and-what-uses-them
 
 # git
@@ -165,15 +168,22 @@ alias resize1k='mogrify -resize 1000'
 alias jpg2mp4='ffmpeg -framerate 24 -pattern_type glob -i '"'"'*.jpg'"'"' -pix_fmt yuv420p out.mp4'
 
 # personal
-alias ping='ping -c 1000'
 alias exssh='ssh -XY 192.168.0.3'
 alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'  # minecraft server
 alias exdls='scp -rp 192.168.0.3:/home/noah/Downloads/ ~/Desktop/exdls/'
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
 alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
-alias klue='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/klue.sh'  # KLToLLVM
-alias kltollvm='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/code/dist/build/kltollvm/kltollvm'  # KLToLLVM
+
+# personal: backup
+alias backup-do='/Users/noah/Dropbox/code/backup/backup-do.sh'
+alias backup-fonts='/Users/noah/Dropbox/code/backup/backup-fonts.sh'
+alias backup-gists='/Users/noah/Dropbox/code/backup/backup-gists.sh'
+alias backup-sync='/Users/noah/Dropbox/code/backup/backup-sync.sh'
+alias backup-tumblr='/Users/noah/Dropbox/code/backup/backup-tumblr.sh'
+alias backup-uberspace='/Users/noah/Dropbox/code/backup/backup-uberspace.sh'
+alias backup-various='/Users/noah/Dropbox/code/backup/backup-various.sh'
+
 
 ###############
 ## FUNCTIONS ##
