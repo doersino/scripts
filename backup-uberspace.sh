@@ -36,8 +36,8 @@ trap "abort" INT
 
 STARTTIME=$(date +%s)
 
-echob "Backing up all MySQL databases..."
-ssh -4 "$IN" "mysqldump -u $USERNAME -p --all-databases > all-databases.sql"
+echob "Backing up all MySQL databases..."  # see http://www.gehaxelt.in/blog/ueberspace-backupscript/
+ssh -4 "$IN" "mysqldump --defaults-file=~/.my.cnf --user=$USERNAME --compact --comments --dump-date --quick --all-databases | gzip > all-databases.sql.gz"
 
 echob "Backing up home directory, including MySQL backup..."
 mkdir -p "$OUT/home/$USERNAME"
@@ -48,7 +48,7 @@ mkdir -p "$OUT/var/www/virtual/$USERNAME"
 scp -pr "$IN:/var/www/virtual/$USERNAME" "$OUT/var/www/virtual/"
 
 echob "Removing MySQL backup..."
-ssh -4 "$IN" "rm all-databases.sql"
+ssh -4 "$IN" "rm all-databases.sql.gz"
 
 ENDTIME=$(date +%s)
 TOTALTIMESECONDS=$(($ENDTIME - $STARTTIME))
