@@ -16,7 +16,7 @@ function echob() {
 
 function abort() {
     echob "Removing MySQL backup..."
-    ssh -4 "$IN" "rm all-databases.sql"
+    ssh -4 "$IN" "rm all-databases.sql.gz"
     [[ -d "$OUT" ]] && echob "Removing incomplete local backup..." && rm -r "$OUT"
     exit 1
 }
