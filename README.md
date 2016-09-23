@@ -18,30 +18,4 @@ Various scripts that don't really necessitate their own repository:
 * `tripcode_words.php`: Generate tripcodes containing words, be default based on a list read from `/usr/share/dict/words`.
 * `webcam_dl.sh`: Downloads a webcam image, overlays the date/time, and compress past images into ZIP and MP4 format. [(Imported from Gist: click here for previous revisions.)](https://gist.github.com/doersino/ade1edd8fe154ea30ba4/revisions)
 
-## License (MIT)
-
-This license applies to any file in this repository unless otherwise noted.
-
-```
-The MIT License (MIT)
-
-Copyright (c) 2015 Noah Doersing
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-```
+Note that the [license](https://github.com/doersino/scripts/blob/master/LICENSE) applies to any file in this repository unless otherwise noted.
