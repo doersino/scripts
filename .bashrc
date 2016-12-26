@@ -112,6 +112,11 @@ alias ll='ls -lh'  # list and human-readable filesizes
 alias la='ll -A'   # include dotfiles
 alias l1='\ls -1'  # one entry per line
 
+# tree
+alias tree='tree -CF'
+alias trel='tree -phD --du'
+alias trea='treel'
+
 # file operations
 alias cp='cp -iPRv'
 alias mv='mv -iv'
@@ -171,6 +176,7 @@ alias jpg2mp4='ffmpeg -framerate 24 -pattern_type glob -i '"'"'*.jpg'"'"' -pix_f
 alias exssh='ssh -XY 192.168.0.3'
 alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'  # minecraft server
 alias exdls='scp -rp 192.168.0.3:/home/noah/Downloads/ ~/Desktop/exdls/'
+alias exdls2='scp -rp 192.168.0.3:/home/noah/Downloads/ /Volumes/Time\ Capsule/exdls/'
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
 alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
