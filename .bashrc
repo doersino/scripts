@@ -133,7 +133,7 @@ alias space2_='for i in *; do [[ $i == *" "* ]] && mv "$i" ${i// /_}; done'
 alias s='subl'
 alias grep='grep --color=auto'     # highlight search phrase
 alias timestamp='date +%s'
-alias pingg='prettyping --nolegend -i 0.1 google.com'
+alias pingg='prettyping --nolegend --columns 50 -i 0.1 google.com'
 alias ip='curl ipinfo.io/ip'
 alias duls='du -h -d1 | sort -r'   # list disk usage statistics for the current folder, via https://github.com/jez/dotfiles/blob/master/util/aliases.sh
 alias up='uptime'                  # drop the "time". just "up". it's cleaner.
@@ -149,13 +149,11 @@ alias brewdeps='echo "Listing all installed homebrew packages along with package
 
 # git
 alias g='git'
-alias gt='g status'
+alias gs='g status'  # collides with ghostscript executable
 alias gd='g diff'
 alias gdsf='g dsf'
 alias ga='g add'
-alias gc='g commit'
-alias gcm='g commit -m'
-alias gcam='g commit -am'
+alias gc='g commit -m'
 alias gp='g push'
 alias gpom='gp origin master'
 alias gl='g log'
