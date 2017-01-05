@@ -67,6 +67,8 @@ fi
 
 # set up the command prompt
 function __prompt_command() {
+
+	# green or red depending on most recent exit code
 	local EXIT=$?
 	if [ $EXIT -eq 0 ]; then
 		PS1="\[\033[1;32m\]"
@@ -75,11 +77,16 @@ function __prompt_command() {
 	fi
 
 	# first line
-	PS1+="[$EXIT \u@\h "
+	PS1+="["
+
+	# print exit code only if it's non-zero
+	if [ ! $EXIT -eq 0 ]; then
+		PS1+="$EXIT "
+	fi
 
 	# directory string (adapted from http://stackoverflow.com/a/26555347)
-	# adjust width by changing factor in expression "n=0.6*n"
-	PS1+='$(pwd|awk -F/ -v "n=$(tput cols)" -v "h=^$HOME" '\''{sub(h,"~");n=0.6*n;b=$1"/"$2} length($0)<=n || NF==3 {print;next;} NF>3{b=b"/.../"; e=$NF; n-=length(b $NF); for (i=NF-1;i>3 && n>length(e)+1;i--) e=$i"/"e;} {print b e;}'\'')'
+	# adjust width by changing operands in expression "n=1*n-20"
+	PS1+='$(pwd|awk -F/ -v "n=$(tput cols)" -v "h=^$HOME" '\''{sub(h,"~");n=1*n-20;b=$1"/"$2} length($0)<=n || NF==3 {print;next;} NF>3{b=b"/.../"; e=$NF; n-=length(b $NF); for (i=NF-1;i>3 && n>length(e)+1;i--) e=$i"/"e;} {print b e;}'\'')'
 
 	# end first line
 	PS1+="]\[\033[0;1m\]"
@@ -90,7 +97,8 @@ function __prompt_command() {
 	fi
 
 	# second line
-	PS1+="\n\$\[\033[0m\] "
+	PS1+="\n"
+	PS1+="\$\[\033[0m\] "
 
 	# set terminal title to basename of cwd
 	PS1="\e]0;\W\a""$PS1"
