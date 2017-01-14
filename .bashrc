@@ -5,6 +5,7 @@ export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 # temporary: helpful for working on my bachelors thesis
 alias klue='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/klue.sh'
 alias kltollvm='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/code/dist/build/kltollvm/kltollvm'
+alias analyzer='~/Dropbox/uni/Bachelorarbeit/ProvenanceHaskell/analyzer/dist/dist-sandbox-8565101/build/analyzer/analyzer'
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 export PATH="$HOME/Library/Haskell/bin:$PATH"
 export PATH="$HOME/.ghc-mod-sandbox/bin:$PATH"
