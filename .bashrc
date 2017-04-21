@@ -10,6 +10,9 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 export PATH="$HOME/Library/Haskell/bin:$PATH"
 export PATH="$HOME/.ghc-mod-sandbox/bin:$PATH"
 
+# temporary: helpful for data provenance hiwi job
+alias q='QHOME=~/Dropbox/uni/DataProvHiwi/q rlwrap -r ~/Dropbox/uni/DataProvHiwi/q/m32/q'
+
 ######################################
 ## HISTORY, SHELL, AND LESS OPTIONS ##
 ######################################
@@ -153,13 +156,15 @@ alias nosleep='pmset noidle'       # keep computer awake indefinitely
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"  # lock screen
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
 alias reallyemptytrash="rm -r ~/.Trash/*"  # because sometimes the system needs a little help
-alias refresh-bashrc='source ~/.bashrc'
 alias brewdeps='echo "Listing all installed homebrew packages along with packages that depend on them:"; brew list -1 | while read cask; do echo -ne "\x1B[1;34m$cask \x1B[0m"; brew uses $cask --installed | awk '"'"'{printf(" %s ", $0)}'"'"'; echo ""; done'  # via https://www.thingy-ma-jig.co.uk/blog/22-09-2014/homebrew-list-packages-and-what-uses-them
+alias p='pygmentize -f terminal'   # syntax highlighting
+alias refresh-bashrc='source ~/.bashrc'
 
 # git
 alias g='git'
-alias gs='g status'  # collides with ghostscript executable
+alias gs='g status'  # collision with ghostscript executable
 alias gd='g diff'
+alias gds='g diff --staged'
 alias gdsf='g dsf'
 alias ga='g add'
 alias gc='g commit -m'
