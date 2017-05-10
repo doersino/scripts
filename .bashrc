@@ -2,8 +2,8 @@
 
 export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 
-# temporary: helpful for working on my bachelors thesis and for data provenance
-# hiwi job
+# temporary: helpful for working on my bachelors thesis and for the data
+# provenance hiwi job
 alias klue='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/klue.sh'
 alias kltollvm='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/code/dist/build/kltollvm/kltollvm'
 alias analyzer='~/Dropbox/uni/Bachelorarbeit/ProvenanceHaskell/analyzer/dist/dist-sandbox-8565101/build/analyzer/analyzer'
@@ -11,6 +11,7 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
 export PATH="$HOME/Library/Haskell/bin:$PATH"
 export PATH="$HOME/.ghc-mod-sandbox/bin:$PATH"
 alias q='QHOME=~/Dropbox/uni/DataProvHiwi/q rlwrap -r ~/Dropbox/uni/DataProvHiwi/q/m32/q'
+export PATH="/Users/noah/.local/bin/:$PATH" # stack
 
 ######################################
 ## HISTORY, SHELL, AND LESS OPTIONS ##
@@ -174,6 +175,7 @@ alias glg='gl --graph'
 alias gls='g log --pretty=oneline --abbrev-commit -n 15'  # short log
 alias grau='g remote add upstream'  # argument: clone url of remote upstream repo
 alias gmakeeven='g fetch upstream && g checkout master && g merge upstream/master && gpom'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
+alias gmakeevenforce='g fetch upstream && g checkout master && git reset --hard upstream/master && gpom --force'  # same except will "force pull" from upstream and you'll lose any local changes
 
 # image operations
 alias 2png='mogrify -format png'
