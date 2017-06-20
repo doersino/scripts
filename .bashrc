@@ -192,6 +192,8 @@ alias exdls='scp -rp 192.168.0.3:/home/noah/Downloads/ ~/Desktop/exdls/'
 alias exdls2='scp -rp 192.168.0.3:/home/noah/Downloads/ /Volumes/Time\ Capsule/exdls/'
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
+alias hejserve='bundle exec jekyll serve'
+alias hejservei='bundle exec jekyll serve --incremental'
 alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
 
 # personal: backup
