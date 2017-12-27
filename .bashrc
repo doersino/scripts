@@ -1,17 +1,24 @@
 #!/bin/bash
 
+##########
+## TEMP ##
+##########
+
+#export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin"
+#export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
+export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/10/bin"
+
+alias sn='psql -c "drop database scratch;"; psql -c "create database scratch;"'
+alias sf='psql -d scratch -f'
+alias sr='psql -d scratch'
+
+
+##########
+## PATH ##
+##########
+
 export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 
-# temporary: helpful for working on my bachelors thesis and for the data
-# provenance hiwi job
-alias klue='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/klue.sh'
-alias kltollvm='~/Dropbox/uni/Bachelorarbeit/KLToLLVM/code/dist/build/kltollvm/kltollvm'
-alias analyzer='~/Dropbox/uni/Bachelorarbeit/ProvenanceHaskell/analyzer/dist/dist-sandbox-8565101/build/analyzer/analyzer'
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
-export PATH="$HOME/Library/Haskell/bin:$PATH"
-export PATH="$HOME/.ghc-mod-sandbox/bin:$PATH"
-alias q='QHOME=~/Dropbox/uni/DataProvHiwi/q rlwrap -r ~/Dropbox/uni/DataProvHiwi/q/m32/q'
-export PATH="/Users/noah/.local/bin/:$PATH" # stack
 
 ######################################
 ## HISTORY, SHELL, AND LESS OPTIONS ##
@@ -31,6 +38,9 @@ export HISTFILESIZE=""
 # ignore lines that start with a space
 export HISTCONTROL=ignoreboth
 
+# require ctrl-D to be pressed twice, not once, on order to exit
+export IGNOREEOF=1
+
 # shell options
 shopt -s histappend  # merge session histories
 shopt -s cmdhist     # combine multiline commands in history
@@ -39,9 +49,6 @@ shopt -s cdspell     # make cd try to fix typos
 bind "set completion-ignore-case on"  # case-insensitive cd completion
 bind "set show-all-if-ambiguous on"   # make it unnecessary to press Tab twice
                                       # when there is more than one match
-
-# make it so ctrl+D must be pressed twice to exit
-export IGNOREEOF=1
 
 # colored man pages
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -62,54 +69,63 @@ export EDITOR=nano
 
 # source git prompt
 if [ -e /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
-	source /usr/local/etc/bash_completion.d/git-prompt.sh
-	GIT_PS1_SHOWDIRTYSTATE=1
-	GIT_PS1_SHOWSTASHSTATE=1
-	GIT_PS1_SHOWUNTRACKEDFILES=1
-	GIT_PS1_SHOWUPSTREAM="verbose"
+    source /usr/local/etc/bash_completion.d/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=1
+    GIT_PS1_SHOWSTASHSTATE=1
+    GIT_PS1_SHOWUNTRACKEDFILES=1
+    GIT_PS1_SHOWUPSTREAM="verbose"
 fi
 
 # set up the command prompt
 function __prompt_command() {
 
-	# green or red depending on most recent exit code
-	local EXIT=$?
-	if [ $EXIT -eq 0 ]; then
-		PS1="\[\033[1;32m\]"
-	else
-		PS1="\[\033[1;31m\]"
-	fi
+    # green or red depending on the previous command's exit code
+    local EXIT=$?
+    if [ $EXIT -eq 0 ]; then
+        PS1="\[\033[1;32m\]"
+    else
+        PS1="\[\033[1;31m\]"
+    fi
 
-	# first line
-	PS1+="["
+    # git prompt, which will be stored in a variable for now
+    GITPROMPT=""
+    GITPROMPTLEN=""
+    if declare -f __git_ps1 > /dev/null; then
+        GITPROMPT="$(__git_ps1 "(%s)")"
+        GITPROMPTLEN="$(echo $GITPROMPT | wc -c | xargs)"
+    fi
 
-	# print exit code only if it's non-zero
-	if [ ! $EXIT -eq 0 ]; then
-		PS1+="$EXIT "
-	fi
+    # start first line
+    PS1+="["
 
-	# directory string (adapted from http://stackoverflow.com/a/26555347)
-	# adjust width by changing operands in expression "n=1*n-20"
-	PS1+='$(pwd|awk -F/ -v "n=$(tput cols)" -v "h=^$HOME" '\''{sub(h,"~");n=1*n-20;b=$1"/"$2} length($0)<=n || NF==3 {print;next;} NF>3{b=b"/.../"; e=$NF; n-=length(b $NF); for (i=NF-1;i>3 && n>length(e)+1;i--) e=$i"/"e;} {print b e;}'\'')'
+    # print exit code only if it's non-zero
+    EXITLEN="0"
+    if [ ! $EXIT -eq 0 ]; then
+        PS1+="$EXIT "
+        EXITLEN="$(echo $EXIT | wc -c | xargs)"
+    fi
 
-	# end first line
-	PS1+="]\[\033[0;1m\]"
+    # directory string (adapted from http://stackoverflow.com/a/26555347),
+    # adjust width by changing operands in expression between "sub(h,"~");" and
+    # ";b=$1"/"$2", although that shouldn't be necessary
+    PS1+='$(pwd|awk -F/ -v "w=$(tput cols)" -v "h=^$HOME" -v "g=$GITPROMPTLEN" -v "e=$EXITLEN" '\''{sub(h,"~");n=w-g-e;b=$1"/"$2} length($0)<=n || NF==3 {print;next;} NF>3{b=b"/.../"; p=$NF; n-=length(b $NF); for (i=NF-1;i>3 && n>length(p)+length($i)+1;i--) p=$i"/"p;} {print b p;}'\'')'
 
-	# git prompt
-	if declare -f __git_ps1 > /dev/null; then
-		PS1+="$(__git_ps1 " (%s)")"
-	fi
+    # add git prompt and end first line
+    PS1+="]\[\033[0;1m\]"
+    if [ ! -z "$GITPROMPT" ]; then
+        PS1+=" $GITPROMPT"
+    fi
+    PS1+="\n"
 
-	# second line
-	PS1+="\n"
-	PS1+="\$\[\033[0m\] "
+    # second line
+    PS1+="\$\[\033[0m\] "
 
-	# set terminal title to basename of cwd
-	PS1="\e]0;\W\a""$PS1"
+    # set terminal title to basename of cwd
+    PS1="\e]0;\W\a""$PS1"
 }
 PROMPT_COMMAND=__prompt_command
 
-# write to history file immediately (and not only during exit)
+# append to history file immediately (and not only during exit)
 PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 
 
@@ -126,8 +142,8 @@ alias l1='\ls -1'  # one entry per line
 
 # tree
 alias tree='tree -CF'
-alias trel='tree -phD --du'
-alias trea='treel'
+alias treel='tree -phD --du'
+alias treea='treel -a'
 
 # file operations
 alias cp='cp -iPRv'
@@ -141,11 +157,11 @@ alias o='open'
 alias f='open -a Finder .'
 alias space2_='for i in *; do [[ $i == *" "* ]] && mv "$i" ${i// /_}; done'
 
-# utilities
+# ulitities
 alias s='subl'
 alias grep='grep --color=auto'     # highlight search phrase
 alias timestamp='date +%s'
-alias pingg='prettyping --nolegend --columns 50 -i 0.1 google.com'
+alias pingg='prettyping --nolegend -i 0.1 google.com'
 alias ip='curl ipinfo.io/ip'
 alias duls='du -h -d1 | sort -r'   # list disk usage statistics for the current folder, via https://github.com/jez/dotfiles/blob/master/util/aliases.sh
 alias up='uptime'                  # drop the "time". just "up". it's cleaner.
@@ -153,11 +169,11 @@ alias batt='pmset -g batt'         # battery status
 alias dim='pmset displaysleepnow'  # turn the display off
 alias sleepnow='pmset sleepnow'    # sleep immediately
 alias nosleep='pmset noidle'       # keep computer awake indefinitely
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"  # lock screen
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
 alias reallyemptytrash="rm -r ~/.Trash/*"  # because sometimes the system needs a little help
 alias brewdeps='echo "Listing all installed homebrew packages along with packages that depend on them:"; brew list -1 | while read cask; do echo -ne "\x1B[1;34m$cask \x1B[0m"; brew uses $cask --installed | awk '"'"'{printf(" %s ", $0)}'"'"'; echo ""; done'  # via https://www.thingy-ma-jig.co.uk/blog/22-09-2014/homebrew-list-packages-and-what-uses-them
-alias p='pygmentize -f terminal'   # syntax highlighting
+alias highlight='pygmentize -f terminal'   # syntax highlighting
+alias bashrc='s ~/.bashrc'
 alias refresh-bashrc='source ~/.bashrc'
 
 # git
@@ -185,18 +201,24 @@ alias png2jpg90='for i in *.png; do mogrify -format jpg -quality 90 "$i" && rm "
 alias resize1k='mogrify -resize 1000'
 alias jpg2mp4='ffmpeg -framerate 24 -pattern_type glob -i '"'"'*.jpg'"'"' -pix_fmt yuv420p out.mp4'
 
-# personal
+
+######################
+## PERSONAL ALIASES ##
+######################
+
+# old laptop
 alias exssh='ssh -XY 192.168.0.3'
 alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'  # minecraft server
 alias exdls='scp -rp 192.168.0.3:/home/noah/Downloads/ ~/Desktop/exdls/'
 alias exdls2='scp -rp 192.168.0.3:/home/noah/Downloads/ /Volumes/Time\ Capsule/exdls/'
+
+# website
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
 alias hejserve='bundle exec jekyll serve'
 alias hejservei='bundle exec jekyll serve --incremental'
-alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
 
-# personal: backup
+# backup
 alias backup-do='/Users/noah/Dropbox/code/backup/backup-do.sh'
 alias backup-fonts='/Users/noah/Dropbox/code/backup/backup-fonts.sh'
 alias backup-gists='/Users/noah/Dropbox/code/backup/backup-gists.sh'
@@ -205,65 +227,63 @@ alias backup-tumblr='/Users/noah/Dropbox/code/backup/backup-tumblr.sh'
 alias backup-uberspace='/Users/noah/Dropbox/code/backup/backup-uberspace.sh'
 alias backup-various='/Users/noah/Dropbox/code/backup/backup-various.sh'
 
+# downloads
+alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
+alias davebull='cd "/Volumes/Time Capsule" && { youtube-dl --no-check-certificate -o "%(timestamp)s_%(title)s-%(id)s.%(ext)s" https://www.twitch.tv/japaneseprintmaking/videos/all; cd -; }'
+alias datesbull='cd "/Volumes/Time Capsule" && { ls -1 *.mp4 | cut -d _ -f 1 | gawk '"'"'{ print strftime("%c", $0); }'"'"'; cd -; }'
+alias backupbull='cd "/Volumes/Time Capsule" && { cp -n *.mp4 "/Volumes/TOSHIBA EXT/dave/"; cd -; }'
+
+
 
 ###############
 ## FUNCTIONS ##
 ###############
 
+# mkdir and cd to the directory that was just created
+function mkcd() {
+    mkdir -p "$1" && cd "$_"
+}
+
 # sets the window/tab title in an OS X terminal
 # https://github.com/doersino/scripts/blob/master/settitle.sh
 function settitle() {
-	echo -ne "\033]0;${@:1}\007"
-}
-
-# mkdir and cd to the directory that was just created
-function mkcd() {
-	local USAGE
-	USAGE="usage: mkcd DIRECTORY_NAME"
-	if [ -z "$1" ]; then
-		echo -e "$USAGE"; return 1
-	fi
-	mkdir -p "$1" && cd "$_";
-}
-
-# list all distinct file extensions in the current directory and, if the -r flag
-# is set, its subdirectories
-function extensions() {
-	local MAXDEPTH="-maxdepth 1"
-	if [[ $1 == "-r" ]]; then
-		MAXDEPTH=""
-	fi
-	find . $MAXDEPTH -type f | perl -ne 'print $1 if m/\.([^.\/]+)$/' | sort -u;
+    echo -ne "\033]0;${@:1}\007"
 }
 
 # change the volume on a mac, from 0 to 7
 # https://github.com/doersino/scripts/blob/master/setvolume.sh
 function setvolume() {
-	local USAGE
-	USAGE="usage: setvolume NUMBER_FROM_0_AND_7"
-	if [ -z "$1" ]; then
-		echo -e "$USAGE"; return 1
-	fi
-	osascript -e "set volume $1"
+    local USAGE
+    USAGE="usage: setvolume NUMBER_FROM_0_AND_7"
+    if [ -z "$1" ]; then
+        echo -e "$USAGE"; return 1
+    fi
+    osascript -e "set volume $1"
 }
 
 # save keystrokes for some common actions when controlling itunes remotely with
 # applescript
 # https://github.com/doersino/scripts/blob/master/it.sh
 function it() {
-	if [ -z "$1" ]; then
-		osascript -e 'tell application "iTunes" to playpause'
-	elif [ "$1" = "?" ]; then
-		osascript -e 'tell application "iTunes" to get name of current track'
-		printf "\033[90mby \033[0m"
-		osascript -e 'tell application "iTunes" to get artist of current track'
-		printf "\033[90mon \033[0m"
-		osascript -e 'tell application "iTunes" to get album of current track'
-	elif [ "$1" = "prev" ]; then
-		osascript -e 'tell application "iTunes" to play previous track'
-	elif [ "$1" = "next" ]; then
-		osascript -e 'tell application "iTunes" to play next track'
-	else
-		osascript -e "tell application \"iTunes\" to $1"
-	fi
+    if [ -z "$1" ]; then
+        osascript -e 'tell application "iTunes" to playpause'
+    elif [ "$1" = "?" ]; then
+        osascript -e 'tell application "iTunes" to get name of current track'
+        printf "\033[90mby \033[0m"
+        osascript -e 'tell application "iTunes" to get artist of current track'
+        printf "\033[90mon \033[0m"
+        osascript -e 'tell application "iTunes" to get album of current track'
+    elif [ "$1" = "prev" ]; then
+        osascript -e 'tell application "iTunes" to play previous track'
+    elif [ "$1" = "next" ]; then
+        osascript -e 'tell application "iTunes" to play next track'
+    else
+        osascript -e "tell application \"iTunes\" to $1"
+    fi
+}
+
+# extract fonts used in a pdf
+# https://stackoverflow.com/a/3489099
+function fonts() {
+    /usr/local/bin/gs -q -dNODISPLAY "/Users/noah/Dropbox/code/scripts/extractFonts.ps" -c "($1) extractFonts quit"
 }
