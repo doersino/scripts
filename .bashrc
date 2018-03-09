@@ -136,7 +136,7 @@ PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 # ls
 alias ls='ls -FG'  # display a trailing slash if entry is directory or star if
                    # entry is executable, also colors
-alias ll='ls -lh'  # list and human-readable filesizes
+alias ll='ls -lh'  # list mode and human-readable filesizes
 alias la='ll -A'   # include dotfiles
 alias l1='\ls -1'  # one entry per line
 
@@ -207,10 +207,10 @@ alias jpg2mp4='ffmpeg -framerate 24 -pattern_type glob -i '"'"'*.jpg'"'"' -pix_f
 ######################
 
 # old laptop
-alias exssh='ssh -XY 192.168.0.3'
-alias exmcs='ssh -t 192.168.0.3 "screen -r mcs"'  # minecraft server
-alias exdls='scp -rp 192.168.0.3:/home/noah/Downloads/ ~/Desktop/exdls/'
-alias exdls2='scp -rp 192.168.0.3:/home/noah/Downloads/ /Volumes/Time\ Capsule/exdls/'
+alias exssh='ssh -XY ex.local'
+alias exmcs='ssh -t ex.local "screen -r mcs"'  # minecraft server, detach with ctrl + a, then d
+alias exdls='scp -rp ex.local:/home/noah/Downloads/ ~/Desktop/exdls/'
+alias exdls2='scp -rp ex.local:/home/noah/Downloads/ /Volumes/Time\ Capsule/exdls/'
 
 # website
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
@@ -219,19 +219,18 @@ alias hejserve='bundle exec jekyll serve'
 alias hejservei='bundle exec jekyll serve --incremental'
 
 # backup
-alias backup-do='/Users/noah/Dropbox/code/backup/backup-do.sh'
 alias backup-fonts='/Users/noah/Dropbox/code/backup/backup-fonts.sh'
 alias backup-gists='/Users/noah/Dropbox/code/backup/backup-gists.sh'
-alias backup-sync='/Users/noah/Dropbox/code/backup/backup-sync.sh'
 alias backup-tumblr='/Users/noah/Dropbox/code/backup/backup-tumblr.sh'
 alias backup-uberspace='/Users/noah/Dropbox/code/backup/backup-uberspace.sh'
-alias backup-various='/Users/noah/Dropbox/code/backup/backup-various.sh'
+alias backup-do='/Users/noah/Dropbox/code/backup/backup-do.sh'
+alias backup-sync='/Users/noah/Dropbox/code/backup/backup-sync.sh'
 
 # downloads
 alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
-alias davebull='cd "/Volumes/Time Capsule" && { youtube-dl --no-check-certificate -o "%(timestamp)s_%(title)s-%(id)s.%(ext)s" https://www.twitch.tv/japaneseprintmaking/videos/all; cd -; }'
+alias davebull='cd "/Volumes/Time Capsule" && { youtube-dl --no-check-certificate -o "%(timestamp)s_%(title)s-%(id)s.%(ext)s" --download-archive .downloaded --console-title https://www.twitch.tv/japaneseprintmaking/videos/all; cd -; }'
 alias datesbull='cd "/Volumes/Time Capsule" && { ls -1 *.mp4 | cut -d _ -f 1 | gawk '"'"'{ print strftime("%c", $0); }'"'"'; cd -; }'
-alias backupbull='cd "/Volumes/Time Capsule" && { cp -n *.mp4 "/Volumes/TOSHIBA EXT/dave/"; cd -; }'
+alias backupbull='rsync -auv --progress --stats --include '"'"'./'"'"' --include '"'"'*.mp4'"'"' --exclude '"'"'*'"'"' "/Volumes/Time Capsule/" "/Volumes/davebull/"'
 
 
 
