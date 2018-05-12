@@ -4,13 +4,22 @@
 ## TEMP ##
 ##########
 
+# postgres
 #export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin"
 #export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
 export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/10/bin"
 
-alias sn='psql -c "drop database scratch;"; psql -c "create database scratch;"'
-alias sf='psql -d scratch -f'
-alias sr='psql -d scratch'
+alias psn='psql -c "drop database scratch;"; psql -c "create database scratch;"'
+alias psf='psql -d scratch -f'
+alias psr='psql -d scratch'
+
+# monetdb
+alias mst='monetdbd start /Users/noah/Dropbox/uni/DB2Hiwi/things/monetdb'
+alias msn='echo y | monetdb destroy scratch; monetdb create scratch; monetdb release scratch'
+alias msfs='mclient -d scratch -l sql'
+alias msfm='mclient -d scratch -l mal'
+alias msrs='mclient -d scratch -l sql'
+alias msrm='mclient -d scratch -l mal'
 
 
 ##########
@@ -92,7 +101,7 @@ function __prompt_command() {
     GITPROMPTLEN=""
     if declare -f __git_ps1 > /dev/null; then
         GITPROMPT="$(__git_ps1 "(%s)")"
-        GITPROMPTLEN="$(echo $GITPROMPT | wc -c | xargs)"
+        GITPROMPTLEN="$(echo "$GITPROMPT" | wc -c | xargs)"
     fi
 
     # start first line
@@ -105,16 +114,52 @@ function __prompt_command() {
         EXITLEN="$(echo $EXIT | wc -c | xargs)"
     fi
 
-    # directory string (adapted from http://stackoverflow.com/a/26555347),
-    # adjust width by changing operands in expression between "sub(h,"~");" and
-    # ";b=$1"/"$2", although that shouldn't be necessary
-    PS1+='$(pwd|awk -F/ -v "w=$(tput cols)" -v "h=^$HOME" -v "g=$GITPROMPTLEN" -v "e=$EXITLEN" '\''{sub(h,"~");n=w-g-e;b=$1"/"$2} length($0)<=n || NF==3 {print;next;} NF>3{b=b"/.../"; p=$NF; n-=length(b $NF); for (i=NF-1;i>3 && n>length(p)+length($i)+1;i--) p=$i"/"p;} {print b p;}'\'')'
+    # compute maximum length of directory string (this does not account for
+    # double-width characters)
+    MAX_PWD_LENGTH=$(($COLUMNS - (1 + $EXITLEN + 1 + $GITPROMPTLEN + 5)))
 
-    # add git prompt and end first line
+    PWD=$(pwd)
+
+    # if truncated, replace truncated part of directory string with this
+    REPLACE="..."
+
+    # determine part of path within $HOME, or entire path if not in $HOME
+    RESIDUAL=${PWD#$HOME}
+
+    # determine whether we are in $HOME or not
+    if [ X"$RESIDUAL" != X"$PWD" ]
+    then
+        PREFIX="~"
+    fi
+
+    # make sure the first few characters of the path are always shown
+    PREFIX="$PREFIX"${RESIDUAL:0:12}
+    RESIDUAL=${RESIDUAL:12}
+
+    # check if residual path needs truncating to keep total length below
+    # $MAX_PWD_LENGTH, compensate for replacement string
+    TRUNC_LENGTH=$(($MAX_PWD_LENGTH - ${#PREFIX} - ${#REPLACE} - 1))
+    NORMAL=${PREFIX}${RESIDUAL}
+    if [ ${#NORMAL} -ge $(($MAX_PWD_LENGTH)) ]
+    then
+        newPWD=${PREFIX}${REPLACE}${RESIDUAL:((${#RESIDUAL} - $TRUNC_LENGTH)):$TRUNC_LENGTH}
+    else
+        newPWD=${PREFIX}${RESIDUAL}
+    fi
+
+    # add to prompt
+    PS1+="$newPWD"
+
+    # add git prompt
     PS1+="]\[\033[0;1m\]"
     if [ ! -z "$GITPROMPT" ]; then
         PS1+=" $GITPROMPT"
+        MAX_PWD_LENGTH=$((MAX_PWD_LENGTH - 1))
     fi
+
+    # add time
+    PS1+="$(printf %$(($MAX_PWD_LENGTH - ${#newPWD}))s)"
+    PS1+=" \[\033[1;37m\]$(date +%H:%M)\[\033[0;1m\]"
     PS1+="\n"
 
     # second line
@@ -181,7 +226,6 @@ alias g='git'
 alias gs='g status'  # collision with ghostscript executable
 alias gd='g diff'
 alias gds='g diff --staged'
-alias gdl='git diff master@{1} master'  # diff after pulling
 alias ga='g add'
 alias gc='g commit -m'
 alias gp='g push'
