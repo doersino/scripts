@@ -14,12 +14,11 @@ alias psf='psql -d scratch -f'
 alias psr='psql -d scratch'
 
 # monetdb
-alias mst='monetdbd start /Users/noah/Dropbox/uni/DB2Hiwi/things/monetdb'
-alias msn='echo y | monetdb destroy scratch; monetdb create scratch; monetdb release scratch'
-alias msfs='mclient -d scratch -l sql'
-alias msfm='mclient -d scratch -l mal'
-alias msrs='mclient -d scratch -l sql'
-alias msrm='mclient -d scratch -l mal'
+alias mstart='monetdbd start /Users/noah/Dropbox/uni/DB2Hiwi/things/monetdb'
+alias mstop='monetdbd stop /Users/noah/Dropbox/uni/DB2Hiwi/things/monetdb'
+alias mnew='echo y | monetdb destroy scratch; monetdb create scratch; monetdb release scratch'
+alias msql='mclient -d scratch -l sql'
+alias mmal='mclient -d scratch -l mal'
 
 
 ##########
@@ -116,7 +115,8 @@ function __prompt_command() {
 
     # compute maximum length of directory string (this does not account for
     # double-width characters)
-    MAX_PWD_LENGTH=$(($COLUMNS - (1 + $EXITLEN + 1 + $GITPROMPTLEN + 5)))
+    #                             [              ]                   date
+    MAX_PWD_LENGTH=$(($COLUMNS - (1 + $EXITLEN + 1 + $GITPROMPTLEN + 8)))
 
     PWD=$(pwd)
 
@@ -159,7 +159,7 @@ function __prompt_command() {
 
     # add time
     PS1+="$(printf %$(($MAX_PWD_LENGTH - ${#newPWD}))s)"
-    PS1+=" \[\033[1;37m\]$(date +%H:%M)\[\033[0;1m\]"
+    PS1+=" \[\033[1;37m\]$(date +%d.%H:%M)\[\033[0;1m\]"
     PS1+="\n"
 
     # second line
@@ -329,4 +329,12 @@ function it() {
 # https://stackoverflow.com/a/3489099
 function fonts() {
     /usr/local/bin/gs -q -dNODISPLAY "/Users/noah/Dropbox/code/scripts/extractFonts.ps" -c "($1) extractFonts quit"
+}
+
+# call a command whenever a file is saved, requires fswatch utility
+function onsave() {
+    FILE="$1"
+    shift
+    CMD="$@"
+    fswatch -v -o "$FILE" | xargs -n1 -I{} $CMD
 }
