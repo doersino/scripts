@@ -237,7 +237,7 @@ alias grau='g remote add upstream'  # argument: clone url of remote upstream rep
 alias gmakeeven='g fetch upstream && g checkout master && g merge upstream/master && gpom'  # in a fork, assuming no local changes have been made, fetch all new commits from upstream, merge them into the fork, and finally push
 alias gmakeevenforce='g fetch upstream && g checkout master && git reset --hard upstream/master && gpom --force'  # same except will "force pull" from upstream and you'll lose any local changes
 
-# image operations
+# image operations, based on imagemagick and ffmpeg
 alias 2png='mogrify -format png'
 alias 2jpg='mogrify -format jpg -quality 95'
 alias png2jpg='for i in *.png; do mogrify -format jpg -quality 95 "$i" && rm "$i"; done'
