@@ -72,6 +72,9 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 # hakase no suki nano nano
 export EDITOR=nano
 
+# keep git from speaking german
+export LC_ALL=en_US.UTF-8
+
 
 ####################
 ## COMMAND PROMPT ##
@@ -339,4 +342,22 @@ function onsave() {
     shift
     CMD="$@"
     fswatch -v -o "$FILE" | xargs -n1 -I{} $CMD
+}
+
+# create a jpeg version of one or multiple heic files (which can lie in
+# different directories; each conversion result ends up "next to" its original)
+# using sips
+function unheic {
+    local USAGE
+    USAGE="usage: unheic FILES"
+    if [ -z "$1" ]; then
+        echo -e "$USAGE"; return 1
+    fi
+
+    for FILE in "$@"; do
+        NO_EXT="${FILE%.*}"
+        echo "$NO_EXT"
+        sips -s format jpeg "$FILE" --out "$NO_EXT".jpg
+    done
+    #
 }
