@@ -5,20 +5,11 @@
 ##########
 
 # postgres
-#export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin"
-#export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
 export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/10/bin"
 
 alias psn='psql -c "drop database scratch;"; psql -c "create database scratch;"'
 alias psf='psql -d scratch -f'
 alias psr='psql -d scratch'
-
-# monetdb
-alias mstart='monetdbd start /Users/noah/Dropbox/uni/DB2Hiwi/things/monetdb'
-alias mstop='monetdbd stop /Users/noah/Dropbox/uni/DB2Hiwi/things/monetdb'
-alias mnew='echo y | monetdb destroy scratch; monetdb create scratch; monetdb release scratch'
-alias msql='mclient -d scratch -l sql'
-alias mmal='mclient -d scratch -l mal'
 
 
 ##########
@@ -57,8 +48,8 @@ shopt -s cmdhist     # combine multiline commands in history
 shopt -s cdspell     # make cd try to fix typos
 
 bind "set completion-ignore-case on"  # case-insensitive cd completion
-bind "set show-all-if-ambiguous on"   # make it unnecessary to press Tab twice
-                                      # when there is more than one match
+bind "set show-all-if-ambiguous on"   # remove the need to press Tab twice when
+                                      # there is more than one match
 
 # colored man pages
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -344,9 +335,9 @@ function onsave() {
     fswatch -v -o "$FILE" | xargs -n1 -I{} $CMD
 }
 
-# create a jpeg version of one or multiple heic files (which can lie in
-# different directories; each conversion result ends up "next to" its original)
-# using sips
+# create a jpeg version of one or multiple heic files (which can be located in
+# different directories; each conversion result ends up "next to" its respective
+# original) using sips
 function unheic {
     local USAGE
     USAGE="usage: unheic FILES"
