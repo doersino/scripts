@@ -47,9 +47,12 @@ shopt -s histappend  # merge session histories
 shopt -s cmdhist     # combine multiline commands in history
 shopt -s cdspell     # make cd try to fix typos
 
-bind "set completion-ignore-case on"  # case-insensitive cd completion
-bind "set show-all-if-ambiguous on"   # remove the need to press Tab twice when
-                                      # there is more than one match
+bind '"\e[B": history-search-forward'   # instead of just walking the history,
+                                        # perform a search on up...
+bind '"\e[A": history-search-backward'  # ...and down arrow press
+bind 'set completion-ignore-case on'    # case-insensitive cd completion
+bind 'set show-all-if-ambiguous on'     # remove the need to press Tab twice
+                                        # when there is more than one match
 
 # colored man pages
 export LESS_TERMCAP_mb=$'\E[01;31m'
