@@ -126,6 +126,7 @@ function __prompt_command() {
     RESIDUAL=${PWD#$HOME}
 
     # determine whether we are in $HOME or not
+    PREFIX=""
     if [ X"$RESIDUAL" != X"$PWD" ]
     then
         PREFIX="~"
