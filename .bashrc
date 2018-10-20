@@ -1,8 +1,8 @@
 #!/bin/bash
 
-##########
-## TEMP ##
-##########
+###############
+## TEMPORARY ##
+###############
 
 # postgres
 export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/10/bin"
@@ -94,7 +94,7 @@ function __prompt_command() {
         PS1="\[\033[1;31m\]"
     fi
 
-    # git prompt, which will be stored in a variable for now
+    # git prompt, which we'll store in a variable for now
     GITPROMPT=""
     GITPROMPTLEN=""
     if declare -f __git_ps1 > /dev/null; then
@@ -105,7 +105,7 @@ function __prompt_command() {
     # start first line
     PS1+="["
 
-    # print exit code only if it's non-zero
+    # print exit code, but only if it's non-zero
     EXITLEN="0"
     if [ ! $EXIT -eq 0 ]; then
         PS1+="$EXIT "
@@ -113,7 +113,7 @@ function __prompt_command() {
     fi
 
     # compute maximum length of directory string (this does not account for
-    # double-width characters)
+    # double-width characters, oh well)
     #                             [              ]                   date
     MAX_PWD_LENGTH=$(($COLUMNS - (1 + $EXITLEN + 1 + $GITPROMPTLEN + 8)))
 
@@ -122,7 +122,7 @@ function __prompt_command() {
     # if truncated, replace truncated part of directory string with this
     REPLACE="..."
 
-    # determine part of path within $HOME, or entire path if not in $HOME
+    # portion of path that's within $HOME, or entire path if not in $HOME
     RESIDUAL=${PWD#$HOME}
 
     # determine whether we are in $HOME or not
@@ -136,19 +136,19 @@ function __prompt_command() {
     PREFIX="$PREFIX"${RESIDUAL:0:12}
     RESIDUAL=${RESIDUAL:12}
 
-    # check if residual path needs truncating to keep total length below
+    # check if residual path needs truncating to keep the total length below
     # $MAX_PWD_LENGTH, compensate for replacement string
     TRUNC_LENGTH=$(($MAX_PWD_LENGTH - ${#PREFIX} - ${#REPLACE} - 1))
     NORMAL=${PREFIX}${RESIDUAL}
     if [ ${#NORMAL} -ge $(($MAX_PWD_LENGTH)) ]
     then
-        newPWD=${PREFIX}${REPLACE}${RESIDUAL:((${#RESIDUAL} - $TRUNC_LENGTH)):$TRUNC_LENGTH}
+        NEW_PWD=${PREFIX}${REPLACE}${RESIDUAL:((${#RESIDUAL} - $TRUNC_LENGTH)):$TRUNC_LENGTH}
     else
-        newPWD=${PREFIX}${RESIDUAL}
+        NEW_PWD=${PREFIX}${RESIDUAL}
     fi
 
-    # add to prompt
-    PS1+="$newPWD"
+    # add that to prompt
+    PS1+="$NEW_PWD"
 
     # add git prompt
     PS1+="]\[\033[0;1m\]"
@@ -157,16 +157,18 @@ function __prompt_command() {
         MAX_PWD_LENGTH=$((MAX_PWD_LENGTH - 1))
     fi
 
-    # add time
-    PS1+="$(printf %$(($MAX_PWD_LENGTH - ${#newPWD}))s)"
+    # print right-aligned time
+    PS1+="$(printf %$(($MAX_PWD_LENGTH - ${#NEW_PWD}))s)"
     PS1+=" \[\033[1;37m\]$(date +%d.%H:%M)\[\033[0;1m\]"
     PS1+="\n"
 
-    # second line
+    # second line: $
     PS1+="\$\[\033[0m\] "
 
     # set terminal title to basename of cwd
     PS1="\e]0;\W\a""$PS1"
+
+    # and we're done!
 }
 PROMPT_COMMAND=__prompt_command
 
@@ -305,7 +307,7 @@ function setvolume() {
 }
 
 # save keystrokes for some common actions when controlling itunes remotely with
-# applescript
+# applescript (this will pop up a permission dialog the first time it's run)
 # https://github.com/doersino/scripts/blob/master/it.sh
 function it() {
     if [ -z "$1" ]; then
