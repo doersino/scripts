@@ -16,7 +16,7 @@ alias psr='psql -d scratch'
 ## PATH ##
 ##########
 
-export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin/"
 
 
 ######################################
@@ -206,6 +206,7 @@ alias space2_='for i in *; do [[ $i == *" "* ]] && mv "$i" ${i// /_}; done'
 
 # ulitities
 alias s='subl'
+alias sm='smerge .'
 alias grep='grep --color=auto'     # highlight search phrase
 alias timestamp='date +%s'
 alias pingg='prettyping --nolegend -i 0.1 google.com'
@@ -217,9 +218,9 @@ alias dim='pmset displaysleepnow'  # turn the display off
 alias sleepnow='pmset sleepnow'    # sleep immediately
 alias nosleep='pmset noidle'       # keep computer awake indefinitely
 alias rmdsstore="find . -name '*.DS_Store' -type f -delete"  # recursive!
-alias reallyemptytrash="rm -r ~/.Trash/*"  # because sometimes the system needs a little help
 alias brewdeps='echo "Listing all installed homebrew packages along with packages that depend on them:"; brew list -1 | while read cask; do echo -ne "\x1B[1;34m$cask \x1B[0m"; brew uses $cask --installed | awk '"'"'{printf(" %s ", $0)}'"'"'; echo ""; done'  # via https://www.thingy-ma-jig.co.uk/blog/22-09-2014/homebrew-list-packages-and-what-uses-them
 alias highlight='pygmentize -f terminal'   # syntax highlighting
+alias extensions="find . -type f | perl -ne 'print $1 if m/\.([^.\/]+)$/' | sort -u"  # via https://stackoverflow.com/a/1842270
 alias bashrc='s ~/.bashrc'
 alias refresh-bashrc='source ~/.bashrc'
 
@@ -276,7 +277,7 @@ alias backup-sync='/Users/noah/Dropbox/code/backup/backup-sync.sh'
 alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
 alias davebull='cd "/Volumes/Time Capsule" && { youtube-dl --no-check-certificate -o "%(timestamp)s_%(title)s-%(id)s.%(ext)s" --download-archive .downloaded --console-title https://www.twitch.tv/japaneseprintmaking/videos/all; cd - >/dev/null; }'
 alias datesbull='cd "/Volumes/Time Capsule" && { ls -1 *.mp4 | cut -d _ -f 1 | gawk '"'"'{ print strftime("%c", $0); }'"'"'; cd -; }'
-alias backupbull='rsync -auv --progress --stats --include '"'"'./'"'"' --include '"'"'*.mp4'"'"' --exclude '"'"'*'"'"' "/Volumes/Time Capsule/" "/Volumes/davebull/"'
+alias backupbull='rsync -auv --progress --stats --include '"'"'./'"'"' --include '"'"'*.mp4'"'"' --exclude '"'"'*'"'"' "/Volumes/Time Capsule/" "/Volumes/one/davebull/"'
 
 
 ###############
