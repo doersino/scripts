@@ -16,14 +16,12 @@ alias psr='psql -d scratch'
 ## PATH ##
 ##########
 
-export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin/"
+export PATH="$PATH:/usr/local/sbin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin/"
 
 
 ######################################
 ## HISTORY, SHELL, AND LESS OPTIONS ##
 ######################################
-
-# also see .inputrc
 
 # read this number of lines into history buffer on startup
 export HISTSIZE=1000000
