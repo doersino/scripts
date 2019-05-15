@@ -277,6 +277,8 @@ alias davebull='cd "/Volumes/Time Capsule" && { youtube-dl --no-check-certificat
 alias datesbull='cd "/Volumes/Time Capsule" && { ls -1 *.mp4 | cut -d _ -f 1 | gawk '"'"'{ print strftime("%c", $0); }'"'"'; cd -; }'
 alias backupbull='rsync -auv --progress --stats --include '"'"'./'"'"' --include '"'"'*.mp4'"'"' --exclude '"'"'*'"'"' "/Volumes/Time Capsule/" "/Volumes/one/davebull/"'
 
+# awk depends on an old version of readline? idk, need to run this sometimes after brew upgrade
+alias repair-readline='cd /usr/local/opt/readline/lib/ && ln libreadline.8.0.dylib libreadline.7.dylib'
 
 ###############
 ## FUNCTIONS ##
