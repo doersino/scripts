@@ -271,11 +271,15 @@ alias backup-uberspace='/Users/noah/Dropbox/code/backup/backup-uberspace.sh'
 alias backup-do='/Users/noah/Dropbox/code/backup/backup-do.sh'
 alias backup-sync='/Users/noah/Dropbox/code/backup/backup-sync.sh'
 
+# dotfiles
+alias commitbashrc='cd ~; cp .bashrc Dropbox/code/scripts/; cd Dropbox/code/scripts/; git add .bashrc; git commit; git push'
+
 # downloads
 alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
 alias davebull='cd "/Volumes/Time Capsule" && { youtube-dl --no-check-certificate -o "%(timestamp)s_%(title)s-%(id)s.%(ext)s" --download-archive .downloaded --console-title https://www.twitch.tv/japaneseprintmaking/videos/all; cd - >/dev/null; }'
 alias datesbull='cd "/Volumes/Time Capsule" && { ls -1 *.mp4 | cut -d _ -f 1 | gawk '"'"'{ print strftime("%c", $0); }'"'"'; cd -; }'
 alias backupbull='rsync -auv --progress --stats --include '"'"'./'"'"' --include '"'"'*.mp4'"'"' --exclude '"'"'*'"'"' "/Volumes/Time Capsule/" "/Volumes/one/davebull/"'
+alias backupbull2='rsync -auv --progress --stats --include '"'"'./'"'"' --include '"'"'*.mp4'"'"' --exclude '"'"'*'"'"' "/Volumes/Time Capsule/" "/Volumes/two/davebull/"'
 
 # awk depends on an old version of readline? idk, need to run this sometimes after brew upgrade
 alias repair-readline='cd /usr/local/opt/readline/lib/ && ln libreadline.8.0.dylib libreadline.7.dylib'
