@@ -5,7 +5,7 @@
 
 # BLOGS is a space-separated list of the blogs you want to backup. You can omit
 # the ".tumblr.com" part if you want.
-BLOGS="neondust.tumblr.com aufgeloest.tumblr.com hejlisten.tumblr.com animesignage.tumblr.com animerrrrrrrroll.tumblr.com gerhardgundermann.tumblr.com"
+BLOGS="neondust.tumblr.com aufgeloest.tumblr.com hejlisten.tumblr.com animesignage.tumblr.com animerrrrrrrroll.tumblr.com gerhardgundermann.tumblr.com apleasantflight.tumblr.com forgotten.tumblr.com"
 # OUT is the directory where the backups will be stored. For each blog, a date-
 # suffixed subdirectory will be created here.
 OUT="$HOME/Desktop/backups"

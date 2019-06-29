@@ -21,6 +21,8 @@ function abort() {
     exit 1
 }
 
+XEROX="rsync -avxhz --progress"  # our copying machine, can also be "scp -pr" if there aren't any weird symlinks
+
 [[ -d "$OUT" ]] && echob "You've already made a backup today, no refill for you!" && exit
 
 echob "Performing a backup of $IN to $OUT in..."
@@ -41,11 +43,11 @@ ssh -4 "$IN" "mysqldump --defaults-file=~/.my.cnf --user=$USERNAME --compact --c
 
 echob "Backing up home directory, including MySQL backup..."
 mkdir -p "$OUT/home/$USERNAME"
-scp -pr "$IN:/home/$USERNAME" "$OUT/home/"
+$XEROX "$IN:/home/$USERNAME" "$OUT/home/"
 
 echob "Backing up web-accessible files..."
 mkdir -p "$OUT/var/www/virtual/$USERNAME"
-scp -pr "$IN:/var/www/virtual/$USERNAME" "$OUT/var/www/virtual/"
+$XEROX "$IN:/var/www/virtual/$USERNAME" "$OUT/var/www/virtual/"
 
 echob "Removing MySQL backup..."
 ssh -4 "$IN" "rm all-databases.sql.gz"
