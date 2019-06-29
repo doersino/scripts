@@ -1,0 +1,5 @@
+\pset linestyle unicode
+\pset border 2
+\pset null ⬮
+\timing on
+\set COMP_KEYWORD_CASE upper
