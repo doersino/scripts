@@ -37,7 +37,7 @@ export HISTFILESIZE=""
 # ignore lines that start with a space
 export HISTCONTROL=ignoreboth
 
-# require ctrl-D to be pressed twice, not once, on order to exit
+# require ctrl-D to be pressed twice, not once, in order to exit
 export IGNOREEOF=1
 
 # shell options
