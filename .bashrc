@@ -266,7 +266,7 @@ alias hejservei='bundle exec jekyll serve --incremental'
 # backup
 alias backup-fonts='/Users/noah/Dropbox/code/backup/backup-fonts.sh'
 alias backup-gists='/Users/noah/Dropbox/code/backup/backup-gists.sh'
-alias backup-tumblr='/Users/noah/Dropbox/code/backup/backup-tumblr.sh'
+alias backup-tumblr='/Users/noah/Dropbox/code/scripts/backup-tumblr.sh'
 alias backup-uberspace='/Users/noah/Dropbox/code/backup/backup-uberspace.sh'
 alias backup-do='/Users/noah/Dropbox/code/backup/backup-do.sh'
 alias backup-sync='/Users/noah/Dropbox/code/backup/backup-sync.sh'
@@ -283,6 +283,9 @@ alias backupbull2='rsync -auv --progress --stats --include '"'"'./'"'"' --includ
 
 # awk depends on an old version of readline? idk, need to run this sometimes after brew upgrade
 alias repair-readline='cd /usr/local/opt/readline/lib/ && ln libreadline.8.0.dylib libreadline.7.dylib'
+
+# 22:22
+alias 2222='echo "Forever (h)waiting..."; while true; do [[ $(date | cut -d" " -f 4 | cut -d":" -f 1) == $(date | cut -d" " -f 4 | cut -d":" -f 2) ]] && date | cut -d" " -f 4 | cut -d":" -f 1,2 | say; sleep 1; done'
 
 ###############
 ## FUNCTIONS ##
