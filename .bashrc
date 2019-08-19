@@ -260,6 +260,7 @@ alias exdls2='scp -rp ex.local:/home/noah/Downloads/ /Volumes/Time\ Capsule/exdl
 # website
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
+alias hejinstall='bundle install --path ./vendor/bundle'
 alias hejserve='bundle exec jekyll serve'
 alias hejservei='bundle exec jekyll serve --incremental'
 
@@ -272,7 +273,7 @@ alias backup-do='/Users/noah/Dropbox/code/backup/backup-do.sh'
 alias backup-sync='/Users/noah/Dropbox/code/backup/backup-sync.sh'
 
 # dotfiles
-alias commitbashrc='echo "Update .bashrc" > /tmp/commitbashrc.txt; cp ~/.bashrc Dropbox/code/scripts/; cd Dropbox/code/scripts/; git add .bashrc; git commit -F /tmp/commitbashrc.txt -e; git push; rm /tmp/commitbashrc.txt; cd -'
+alias commitbashrc='echo "Update .bashrc" > /tmp/commitbashrc.txt; cp ~/.bashrc ~/Dropbox/code/scripts/; cd ~/Dropbox/code/scripts/; git add .bashrc; git commit -F /tmp/commitbashrc.txt -e; git push; rm /tmp/commitbashrc.txt; cd -'
 
 # downloads
 alias simonstalenhag='cd ~/Desktop; mkdir simonstalenhag; cd simonstalenhag; curl http://www.simonstalenhag.se | grep bilderbig | cut -d"\"" -f2 | sed "s,//,/,g" | uniq | sed -e "s/^/http:\/\/www.simonstalenhag.se\//" | xargs wget'
