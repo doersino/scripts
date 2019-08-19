@@ -260,7 +260,7 @@ alias exdls2='scp -rp ex.local:/home/noah/Downloads/ /Volumes/Time\ Capsule/exdl
 # website
 alias hejssh='ssh -4 doersino@draco.uberspace.de'
 alias hejquota='hejssh quota -gsl'
-alias hejinstall='bundle install --path ./vendor/bundle'
+alias hejinstall='bundle install --path ./vendor/bundle'  # the --deployment flag also uses ./vendor/bundle, but requires a Gemfile.lock, which in the case of a Jekyll upgrade may not be current
 alias hejserve='bundle exec jekyll serve'
 alias hejservei='bundle exec jekyll serve --incremental'
 
