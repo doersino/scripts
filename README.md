@@ -2,6 +2,7 @@
 Various scripts that don't really necessitate their own repository:
 
 * `256-colors.sh`: OS X/Terminal.app-compatible version of the color demo script available at [http://misc.flogisoft.com/bash/tip_colors_and_formatting#colors2](http://misc.flogisoft.com/bash/tip_colors_and_formatting#colors2).
+* `askhn.py`: Lists the "Ask HN" posts among the 500 most recent [Hacker News](https://news.ycombinator.com) submissions in chronological order.
 * `backup_gists.py`: Clone or update a user's public gists. Usage: backup_gists.py USERNAME [DIR] [(Imported from Gist: click here for previous revisions.)](https://gist.github.com/doersino/af1ba2bb16b12542b41d/revisions)
 * `backup_sync.sh`: Rsync wrapper with sanity checking for some of the most common use cases. [(Imported from Gist: click here for previous revisions.)](https://gist.github.com/doersino/ecca3ca9f6254b9c6041/revisions)
 * `backup_sync_exclude.txt`: Used by `backup_sync.sh` as an exclude patterns file.
