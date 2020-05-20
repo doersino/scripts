@@ -2,6 +2,7 @@
 # in chronological order (i.e. newest last; since your terminal probably scrolls
 # along with this script's output).
 
+import argparse
 import requests
 import json
 import concurrent.futures
@@ -49,6 +50,12 @@ def load_posts(ids):
 def sort_posts(posts, reverse=False):
     return sorted(posts, key=lambda post: post["time"], reverse=not reverse)
 
+def filter_posts(posts, search=""):
+    return [post for post in posts if search.lower() in post["title"].lower()]
+
+def limit_posts(posts, limit=-1):
+    return posts[:limit]
+
 def pretty_post(post):
     ago = datetime.datetime.now() - datetime.datetime.fromtimestamp(post["time"])
     hours, minutes = map(int, str(ago).split(":")[:2])
@@ -82,14 +89,25 @@ def pretty_post(post):
     print(f"{LINK}https://news.ycombinator.com/item?id={post['id']}{OFF}")
     #print(post)
 
+def pretty_posts(posts):
+    for post in posts:
+        pretty_post(post)
+
 
 def main():
-    ids = load_new()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("search", type=str, help="string to filter posts by, e.g. 'ask hn' (case-insensitive)")
+    parser.add_argument("-n", "--number", type=int, default=500, help="maximum number of posts to fetch (<= 500)")
+    parser.add_argument("-l", "--limit", type=int, default=500, help="limit of number of posts to print")
+    args = parser.parse_args()
+    #print(args)
+
+    ids = load_new(args.number)
     posts = load_posts(ids)
     posts = sort_posts(posts, reverse=True)
+    posts = filter_posts(posts, args.search)
+    posts = limit_posts(posts, args.limit)
 
-    for post in posts:
-        if "ask hn" in post["title"].lower():
-            pretty_post(post)
+    pretty_posts(posts)
 
 main()
