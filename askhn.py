@@ -68,7 +68,7 @@ def pretty_post(post):
     superhot_if_n_comments_per_hour = 7
     hyperdyperhot_if_n_comments_per_hour = 16
     hot = ""
-    fractional_hours = 60.0 / (60 * hours + minutes)
+    fractional_hours = 60.0 / (60 * hours + minutes + 0.1)  # + 0.1 to prevent division by zero on very new posts
     if post["descendants"] >= hot_if_at_least_n_comments and post["descendants"] >= hot_if_n_comments_per_hour / fractional_hours:
         if post["descendants"] >= superhot_if_n_comments_per_hour / fractional_hours:
             hot += "🔥"
