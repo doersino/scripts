@@ -1,6 +1,6 @@
-# Lists the "Ask HN" posts among the 500 most recent Hacker News submissions
-# in chronological order (i.e. newest last; since your terminal probably scrolls
-# along with this script's output).
+# Lists posts matching a search term (e.g. "ask hn") among the 500 most recent
+# Hacker News submissions in chronological order (i.e. newest last; since your
+# terminal probably scrolls along with this script's output).
 
 import argparse
 import requests
