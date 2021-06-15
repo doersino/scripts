@@ -11,7 +11,7 @@ Various scripts that don't really necessitate their own repository:
 * `extractFonts.ps` is from (here)[http://git.ghostscript.com/?p=ghostpdl.git;a=tree;f=toolbin;h=87998a47c9e85c10b834890161558d1b415d9dc4;hb=refs/heads/master].
 * `hn.py`: Lists posts matching a search term (e.g. "ask hn") among among the 500 most recent [Hacker News](https://news.ycombinator.com) submissions in chronological order.
 * `imagesnap_avoidmemoryleak.sh`: Avoids the memory leak occuring when capturing many webcam pictures using imagesnap version 0.2.5 by regularly restarting the command. [(Imported from Gist: click here for previous revisions.)](https://gist.github.com/doersino/fdca8e065eb30e030ef2/revisions)
-* `it.sh`: Save keystrokes for some common actions when controlling iTunes remotely using AppleScript.
+* `it.sh`: Save keystrokes for some common actions when controlling iTunes or Apple Music remotely using AppleScript.
 * `move_small_images.sh`: Using `sips`, move images in the current directory that would be too small to be a 1440x900 desktop wallpaper to a subdirectory "small".
 * `move_vertical_images.sh`: Using `sips`, move vertical images in the current directory to a subdirectory "vertical".
 * `settitle.sh`: Sets the window/tab title on an OS X terminal. [(Imported from Gist: click here for previous revisions.)](https://gist.github.com/doersino/4644810/revisions)
