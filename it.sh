@@ -1,5 +1,5 @@
-# Save keystrokes for some common actions when controlling itunes or apple music
-# remotely with AppleScript. This might pop up a permission dialog the first
+# Save keystrokes for some common actions when controlling iTunes or Apple Music
+# remotely with AppleScript. This might pop up a permissions dialog the first
 # time it's run.
 #
 # - `it` sans arguements will pause or resume playback.
