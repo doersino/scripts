@@ -1,9 +1,24 @@
+# Save keystrokes for some common actions when controlling itunes or apple music
+# remotely with AppleScript. This might pop up a permission dialog the first
+# time it's run.
+#
+# - `it` sans arguements will pause or resume playback.
+# - `it ?` displays information about the currently playing track.
+# - `it prev` and `prev next` do what you'd expect them to do.
+# - Any other arguments will be passed to AppleScript, as in `tell application
+#   "<ITUNES>" to ...`.
+#
+# https://github.com/doersino/scripts/blob/master/it.sh
+
 function it() {
+
+    # select available player
     ITUNES="iTunes"
     if [ -d "/System/Applications/Music.app" ]; then
         ITUNES="Music"
     fi
 
+    # do the things
     if [ -z "$1" ]; then
         osascript -e "tell application \"$ITUNES\" to playpause"
     elif [ "$1" = "?" ]; then
