@@ -1,6 +1,6 @@
-# Save keystrokes for some common actions when controlling iTunes or Apple Music
-# remotely with AppleScript. This might pop up a permissions dialog the first
-# time it's run.
+# Save keystrokes for some common actions when controlling iTunes, Apple Music
+# or Swinsian remotely with AppleScript. This might pop up a permissions dialog
+# the first time it's run.
 #
 # - `it` sans arguements will pause or resume playback.
 # - `it ?` displays information about the currently playing track.
@@ -16,6 +16,9 @@ function it() {
     ITUNES="iTunes"
     if [ -d "/System/Applications/Music.app" ]; then
         ITUNES="Music"
+    fi
+    if [ -d "/Applications/Swinsian.app" ]; then
+        ITUNES="Swinsian"
     fi
 
     # do the things
